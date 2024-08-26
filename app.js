@@ -39,25 +39,54 @@ async function showWeather() {
 }
 
 async function showForecast() {
-  const city = cityInput.value;
-  const response = await fetch(`${URL_FORECAST_WEATHER}${city}`);
-  const forecast = await response.json();
+    const city = cityInput.value;
+    const response = await fetch(`${URL_FORECAST_WEATHER}${city}`);
+    const forecast = await response.json();
+  
+    const forecasts = forecast.list;
+    const daysMap = {};
+  
+    forecasts.forEach(entry => {
+        const date = new Date(entry.dt * 1000);
+        const dayKey = date.toLocaleDateString(undefined, { weekday: 'short', day: 'numeric', month: 'numeric' });
+      
+        if (!daysMap[dayKey]) {
+            daysMap[dayKey] = [];
+        }
+      
+        daysMap[dayKey].push(entry);
+    });
 
-  const forecasts = forecast.list;
+    forecastContainer.innerHTML = '';
 
-  forecastContainer.innerHTML = forecasts
-    .map(entry => {
-      const iconCode = entry.weather[0].icon;
-      const iconImageUrl = `http://openweathermap.org/img/w/${iconCode}.png`;
-      const time = new Date(entry.dt * 1000).toLocaleTimeString();
+    const dayHeaders = Object.keys(daysMap);
 
-      return `
-        <div>
-            <img src=${iconImageUrl} alt="${entry.weather[0].description}" />
-            <p>Time: ${time}</p>
-            <p>Temperature: ${entry.main.temp} °C</p>
-            <p>Description: ${entry.weather[0].description}</p>
-        </div>
-      `;
-    }).join('');
+    dayHeaders.forEach(day => {
+        const dayForecasts = daysMap[day];
+
+        const dayContainer = document.createElement('div');
+        dayContainer.classList.add('forecast-day');
+
+        const dayHeader = document.createElement('div');
+        dayHeader.classList.add('day-header');
+        dayHeader.textContent = day;
+        dayContainer.appendChild(dayHeader);
+
+        dayForecasts.forEach(entry => {
+            const iconCode = entry.weather[0].icon;
+            const iconImageUrl = `http://openweathermap.org/img/w/${iconCode}.png`;
+            const time = new Date(entry.dt * 1000).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' });
+
+            const forecastItem = document.createElement('div');
+            forecastItem.classList.add('forecast-item');
+            forecastItem.innerHTML = `
+                <img src="${iconImageUrl}" alt="${entry.weather[0].description}" />
+                <p>Time: ${time}</p>
+                <p>Temperature: ${entry.main.temp} °C</p>
+                <p>Description: ${entry.weather[0].description}</p>
+            `;
+            dayContainer.appendChild(forecastItem);
+        });
+        forecastContainer.appendChild(dayContainer);
+    });
 }
