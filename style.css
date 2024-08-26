@@ -1,8 +1,89 @@
-#input-and-btn-container, .container {
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #e6f7ff;
+    color: #333;
     display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
 }
 
 .container {
+    background-color: #e6f7ff;
+    padding: 20px;
+    max-width: 600px;
+    width: 100%;
+    display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 20px;
+}
+
+#input-and-btn-container {
+    background-color: white;
+    display: flex;
+    gap: 10px;
+    border-radius: 10px;
+    justify-content: center;
+    padding: 10px;
+}
+
+#input {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+button {
+    background-color: #1877f2;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #155fa0;
+}
+
+input {
+    text-align: center;
+    padding: 5px;
+    margin-top: 4px;
+    border: 2px solid #1877f2;
+    border-radius: 10px;
+    outline: none;
+    width: 200px;
+}
+
+#weather-container,
+#forecast-container {
+    background-color: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    text-align: center;
+}
+
+#forecast-container {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-gap: 15px;
+}
+
+#forecast-container div {
+    background-color: #f0f8ff;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
 }

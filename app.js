@@ -53,10 +53,10 @@ async function showForecast() {
 
       return `
         <div>
-          <p>Time: ${time}</p>
-          <p>Temperature: ${entry.main.temp} °C</p>
-          <p>Description: ${entry.weather[0].description}</p>
-          <img src=${iconImageUrl} alt="${entry.weather[0].description}" />
+            <img src=${iconImageUrl} alt="${entry.weather[0].description}" />
+            <p>Time: ${time}</p>
+            <p>Temperature: ${entry.main.temp} °C</p>
+            <p>Description: ${entry.weather[0].description}</p>
         </div>
       `;
     }).join('');
