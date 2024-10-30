@@ -51,10 +51,15 @@ input {
     text-align: center;
     padding: 5px;
     margin-top: 4px;
-    border: 2px solid #1877f2;
+    border: 1.5px solid #70a7ee;
     border-radius: 10px;
     outline: none;
     width: 150px;
+}
+
+input:focus {
+    border-color: #1877f2;
+    outline: none;
 }
 
 #weather-container,

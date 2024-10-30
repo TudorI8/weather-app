@@ -4,6 +4,8 @@ const showForecastBtn = document.getElementById('show-forecast');
 const weatherContainer = document.getElementById('weather-container');
 const forecastContainer = document.getElementById('forecast-container');
 
+let currentCity = '';
+
 showWeatherBtn.addEventListener('click', showWeather);
 cityInput.addEventListener('keypress', function(e) {
 	if (e.key === 'Enter') {
@@ -18,7 +20,14 @@ const URL_FORECAST_WEATHER =
   'https://api.openweathermap.org/data/2.5/forecast?appid=69518b1f8f16c35f8705550dc4161056&units=metric&q=';
 
 async function showWeather() {
-	const city = cityInput.value;
+	const city = cityInput.value.trim();
+
+    if (city !== currentCity) {
+		weatherContainer.innerHTML = '';
+		forecastContainer.innerHTML = '';
+		currentCity = city;
+	}
+
 	const reponse = await fetch(`${URL_CURRENT_WEATHER}${city}`);
 	const weather = await reponse.json();
 
@@ -39,7 +48,14 @@ async function showWeather() {
 }
 
 async function showForecast() {
-    const city = cityInput.value;
+    const city = cityInput.value.trim();
+
+    if (city !== currentCity) {
+		weatherContainer.innerHTML = '';
+		forecastContainer.innerHTML = '';
+		currentCity = city;
+	}
+
     const response = await fetch(`${URL_FORECAST_WEATHER}${city}`);
     const forecast = await response.json();
   
