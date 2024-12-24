@@ -73,7 +73,16 @@ input:focus {
 }
 
 #weather-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
     margin-bottom: 20px;
+}
+
+#error-message {
+    color: red;
+    font-weight: bold;
 }
 
 #forecast-container {
